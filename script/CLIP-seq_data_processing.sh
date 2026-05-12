@@ -10,6 +10,7 @@ echo "Starting CLIP-seq data processing pipeline..."
 # ------------------------------------------------------------------------------
 # Extract a 10 bp random UMI from the reads and append it to the read name.
 # This is crucial for distinguishing biological duplicates from PCR duplicates later.
+# Note: If your data does NOT contain UMIs (standard CLIP-seq), skip this step.
 
 # Process IP replicate 1
 umi_tools extract --random-seed 1 \
@@ -72,10 +73,14 @@ done
 
 
 # ------------------------------------------------------------------------------
-# Step 4: PCR Deduplication using UMIs
+# Step 4: PCR Deduplication
 # ------------------------------------------------------------------------------
-# Note: An alternative deduplication method using Picard is commented out below.
-# Here we use umi_tools dedup to remove PCR duplicates based on mapping coordinates and UMIs.
+# Note for non-UMI data: Use Picard MarkDuplicates instead of umi_tools.
+# picard MarkDuplicates -I align/XXX_Aligned.sortedByCoord.out.bam \
+#     -O align/XXX_Aligned_dedupped.bam --REMOVE_DUPLICATES true \
+#     --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT \
+#     -M align/XXX_Aligned_MarkDuplicates_output.metrics
+
 
 # Index the sorted BAM files before deduplication
 samtools index -@ 20 align/input_Aligned.sortedByCoord.out.bam
@@ -120,6 +125,6 @@ pureclip -i align/IP1_Aligned.sortedByCoord.umidedup.bam \
 
 echo "Pipeline execution completed!"
 
-
+# Annotate crosslink sites with gene and exon information
 bedtools intersect -a peak/PureCLIP.crosslink_sites.bed -b Reference/GRCh38/gencode.v40.pri.annotation_gene.bed -s -wa -wb > peak/PureCLIP.crosslink_sites_in_gene.bed
 bedtools intersect -a peak/PureCLIP.crosslink_sites.bed -b Reference/GRCh38/gencode.v40.pri.annotation_exon.bed -s -wa -wb > peak/PureCLIP.crosslink_sites_in_exon.bed
