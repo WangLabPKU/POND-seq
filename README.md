@@ -5,7 +5,7 @@
 👤 **Author:** Gang Xie, PhD Candidate  
 🏫 **Affiliation:** PKU-THU-NIBS Joint Graduate Program, Academy for Advanced Interdisciplinary Studies, Peking University, Beijing, China  
 ✉️ **Email:** gangx1e@stu.pku.edu.cn  
-📅 **Date:** May 8th, 2026  
+📅 **Date:** May 28th, 2026  
 ✅ **Version:** 1.0  
 
 ## Overview
@@ -23,7 +23,32 @@ It provides a comprehensive workflow for analyzing transcripts interacting with 
 - **Python Packages:** `pandas`, `numpy`, `matplotlib`, `seaborn`
 - **R Packages:** `DESeq2`, `clusterProfiler`, `Mfuzz`
 
-> **Note:** We highly recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) to manage your software environments and dependencies.
+### Environment Setup
+We highly recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) to manage your software environments. You can quickly configure the required environment for command-line tools and Python packages by running:
+
+```bash
+# Clone the repository
+git clone [https://github.com/WangLabPKU/POND-seq.git](https://github.com/WangLabPKU/POND-seq.git)
+cd POND-seq-Pipeline
+
+# Create and activate the conda environment
+conda env create -f POND_environment.yml
+conda activate POND_env
+```
+
+⚠️ Important Note: The `POND_environment.yml` file configures the Python and command-line tool dependencies only. It does NOT include the installation of the R packages. Please ensure you install `DESeq2`, `clusterProfiler`, `Mfuzz` and so on, manually within your R environment (e.g., via Bioconductor).
+
+## Reference Genomes & Annotations
+To ensure accurate alignment and reproducibility, this pipeline relies on the following specific reference genomes, annotations, and spike-in sequences:
+
+* **Human Reference:** Genome Assembly: **hg38**
+    * Annotation: **GENCODE Human v40** ([Download Link](https://www.gencodegenes.org/human/release_40.html))
+* **Mouse Reference:** Genome Assembly: **mm10**
+    * Annotation: **GENCODE Mouse vM25** ([Download Link](https://www.gencodegenes.org/mouse/release_M25.html))
+* **Spike-in Controls:** * **ERCC Spike-in sequences** ([Download ZIP](https://assets.thermofisher.cn/TFS-Assets/LSG/manuals/ERCC92.zip))
+* **Small RNA References:**
+    * *miRNA:* *Homo sapiens* mature miRNA sequences obtained from the **miRBase** database.
+    * *snoRNA:* *Homo sapiens* noncoding RNA sequences (excluding long noncoding RNAs) obtained from the **ENSEMBL** database.
 
 ## Data Availability
 The raw sequencing data (FASTQ format) and processed count matrices generated in this study have been deposited in the NCBI Gene Expression Omnibus (GEO) and are publicly accessible under accession number: **[GSE293919](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE293919)**.
