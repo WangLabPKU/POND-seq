@@ -4,7 +4,7 @@
 
 👤 **Author:** Gang Xie, PhD Candidate  
 🏫 **Affiliation:** PKU-THU-NIBS Joint Graduate Program, Academy for Advanced Interdisciplinary Studies, Peking University, Beijing, China  
-✉️ **Email:** gangx1e@stu.pku.edu.cn  
+✉️ **Email:** gangx1e@pku.edu.cn  
 📅 **Date:** May 28th, 2026  
 ✅ **Version:** 1.0  
 
